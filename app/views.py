@@ -1,7 +1,7 @@
-from django.views import generic
 from . import models
+from django.http import Http404
+from django.shortcuts import render_to_response
 
-class BlogIndex(generic.ListView):
-	queryset = models.Entry.objects.published()
-	template_name = "home.html"
-	paginate_by = 2
+def blogs(request):
+	entries = models.Entry.objects.all()
+	return render_to_response('pages/home.html', {'object_list': entries})
